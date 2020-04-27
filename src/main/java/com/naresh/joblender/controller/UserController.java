@@ -229,6 +229,7 @@ public class UserController {
 		}
 		
 		 userDao.updateStatus(u, "active");
+		 session.setAttribute("user", u);
 		 mv.addObject("jobs", jobsDao.list());
 		 mv.setViewName("employee-home");
 		 return mv;
