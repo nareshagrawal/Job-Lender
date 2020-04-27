@@ -224,7 +224,8 @@ public class EmployeeController {
 			if(employee!=null) {
 			employeeDao.deleteEmployee(u.getUserID());
 			}
-			userDao.delete(u.getUserID());
+			userDao.updateStatus(u,"inactive");
+			//userDao.delete(u.getUserID());
 			session.invalidate();
 			logger.info("account deleted");
 		    mv.setViewName("account-delete");

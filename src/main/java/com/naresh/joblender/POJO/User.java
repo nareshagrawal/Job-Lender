@@ -45,6 +45,9 @@ public class User {
 	@Column(name = "role")
 	private String role;
 	
+	@Column(name = "status")
+	private String status;
+	
 	@ManyToOne
 	private Company company; 
 	
@@ -122,6 +125,14 @@ public class User {
 
 	public String getRole() {
 		return role;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public void setRole(String role) {

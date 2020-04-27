@@ -60,6 +60,13 @@ public class UserController {
 				mv.setViewName("error");
 				return mv;
 			}
+			if(u.getStatus().equals("inactive"))
+			{
+				System.out.println("User Profile inactive");
+				session.setAttribute("errorMessage", "Your profile deleted");
+				mv.setViewName("recover");
+				return mv;
+			}
 			session.setAttribute("user", u);
 			String role = u.getRole().trim();
 			
@@ -180,6 +187,7 @@ public class UserController {
 			System.out.print("registerNewUser");
 			String role = request.getParameter("myRole");
 			user.setRole(role);
+			user.setStatus("active");
 			
 			if(role.equalsIgnoreCase("employer")) {
 				
@@ -206,6 +214,24 @@ public class UserController {
 		}
 	}
 	
-	
+	@RequestMapping(value = "/user/reactive.htm", method = RequestMethod.POST)
+	protected ModelAndView reactiveAccount(HttpServletRequest request, UserDAO userDao,JobsDAO jobsDao) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		HttpSession session = (HttpSession) request.getSession();
+		User u = userDao.get(request.getParameter("username"), request.getParameter("password"));
+		
+		if(u == null|| !(u.getEmail().equalsIgnoreCase(request.getParameter("email")))){
+			System.out.println("UserName/Password does not exist");
+			session.setAttribute("errorMessage", "UserName/Password does not exist");
+			mv.setViewName("error");
+			return mv;
+		}
+		
+		 userDao.updateStatus(u, "active");
+		 mv.addObject("jobs", jobsDao.list());
+		 mv.setViewName("employee-home");
+		 return mv;
+	}
 
 }

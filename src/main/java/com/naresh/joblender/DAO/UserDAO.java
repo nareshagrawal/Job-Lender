@@ -100,6 +100,7 @@ public class UserDAO extends DAO {
 			user.setEmail(u.getEmail());
 			user.setRole(u.getRole());
 			user.setCompany(u.getCompany());
+			user.setStatus(u.getStatus());
 		    getSession().save(user);
 			commit();
 			return user;
@@ -169,6 +170,23 @@ public class UserDAO extends DAO {
 //          getSession().merge(user);
             commit();
           
+        } catch (HibernateException e) {
+            rollback();
+            throw new UserException("Could not update the user", e);
+        } finally {
+            close();
+        }
+    }
+	
+	public void updateStatus(User user, String status) throws UserException {
+        try {
+
+            begin();
+            user.setStatus(status);
+            getSession().update(user);
+    //        getSession().merge(user);
+            commit();
+            
         } catch (HibernateException e) {
             rollback();
             throw new UserException("Could not update the user", e);
