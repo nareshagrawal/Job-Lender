@@ -3,6 +3,7 @@ Spring MVC and Hibernate project
 # Description
 * Developed a Spring MVC and Hibernate application for making job search easier through job portal where recruiters of different companies will post job openings and job seekers will search & apply to those jobs
 * Implemented features for job seeker facilitating job recommendations and a functionality of withdrawing submitted job application, viewing applied jobs & searching for a job by various option 
+* Implemented a feature of account recovery after deletion of an account
 * Incorporated Apache Commons Email API features and implemented a functionally to download applicant profile as a PDF using iText API & recruiter can see a list of applied candidates for the jobs 
 * Utilized Log4J for logging all user and system actions and JUnit for testing the application before the iterative deployment
 # Design & Considerations
